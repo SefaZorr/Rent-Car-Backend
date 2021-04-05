@@ -15,8 +15,8 @@ namespace ConsoleUI
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new InMemoryCarDal());
-
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
