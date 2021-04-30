@@ -34,5 +34,7 @@ namespace Business.Constants
         internal static string UserDeleted = "Kullanıcı silindi";
         internal static string UsersListed = "Kullanıcılar listelendi";
         internal static string UserUpdated = "Kullanıcı güncellendi";
+        internal static string ImageLimit;
+        internal static string CarImageAdded;
     }
 }
