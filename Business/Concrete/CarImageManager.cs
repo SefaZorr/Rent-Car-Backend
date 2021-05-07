@@ -124,5 +124,5 @@ namespace Business.Concrete
         }
     }
 
-    }
+    
 }
