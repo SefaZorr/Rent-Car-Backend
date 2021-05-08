@@ -20,6 +20,8 @@ using Core.Utilities.Security.Jwt;
 using Core.Utilities.Security.Encryption;
 using Microsoft.AspNetCore.Http;
 using Core.Utilities.IoC;
+using Core.Extensions;
+using Core.DependencyResolver;
 
 namespace WebAPI
 {
@@ -37,8 +39,6 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -55,7 +55,9 @@ namespace WebAPI
                 };
             });
 
-            ServiceTool.Create(services);
+            services.AddDependencyResolver(new ICoreModule[] {
+                new CoreModule()
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
