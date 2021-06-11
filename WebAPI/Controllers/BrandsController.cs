@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
             var result = _brandService.GetAllBrands();
             if (result.Success)
             {
-                Ok(result);
+                return Ok(result);
             }
             return BadRequest(result);
         }

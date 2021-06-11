@@ -12,6 +12,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -47,11 +48,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
+
         [CacheAspect]
         [PerformanceAspect(5)]
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarsDtoByBrandId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails().Where(c => c.BrandID == id).ToList());
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -74,6 +81,16 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
             return new SuccessResult("Araç bilgileri güncellenmiştir");
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarsDtoByColorId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails().Where(c => c.ColorId == id).ToList());
+        }
+
+        public IDataResult<CarDetailDto> GetCarsDtoByCarId(int id)
+        {
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails().Where(c => c.CarId == id).FirstOrDefault());
         }
     }
 }
